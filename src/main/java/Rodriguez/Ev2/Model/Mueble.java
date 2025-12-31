@@ -94,7 +94,7 @@ public class Mueble{
         this.stock = stock;
     }
 
-    public boolean isEstado() {
+    public boolean isActivo() {
         return estado;
     }
 
@@ -117,7 +117,6 @@ public class Mueble{
     public void setMaterial(String material) {
         this.material = material;
     }
-
     
 }
 
