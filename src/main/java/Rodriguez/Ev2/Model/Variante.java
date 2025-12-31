@@ -19,7 +19,7 @@ public class Variante {
     private int idVariante;
 
     //Mappeo con la tabla ConexionItemVariante
-    @OneToMany(mappedBy = "idConexion")
+    @OneToMany(mappedBy = "variante")
     private List<ConexionItemVariante> conexiones;
     
     @Column(name = "nombre_variante")

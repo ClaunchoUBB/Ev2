@@ -28,7 +28,7 @@ public class Item {
 
 
     //Mapeo de la conexión con "ConexionItemVariante"
-    @OneToMany(mappedBy = "idConexion")
+    @OneToMany(mappedBy = "item")
     private List<ConexionItemVariante> conexiones;
 
 
