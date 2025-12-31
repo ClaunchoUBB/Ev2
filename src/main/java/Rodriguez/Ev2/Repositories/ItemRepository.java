@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import Rodriguez.Ev2.Model.Item;
 
 @Repository
-public interface ItemRepositorio extends JpaRepository<Item, Integer> {
+public interface ItemRepository extends JpaRepository<Item, Integer> {
 
     
 }
