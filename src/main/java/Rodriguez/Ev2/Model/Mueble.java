@@ -19,6 +19,7 @@ public class Mueble{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idMueble;
 
+    //Mappeo con la tabla item
     @OneToMany(mappedBy = "idItem")
     private List<Item> items;
 
@@ -42,6 +43,16 @@ public class Mueble{
 
     @Column(name="material")
     private String material;
+
+
+
+
+
+
+
+
+
+
 
     public int getIdMueble() {
         return idMueble;

@@ -1,10 +1,13 @@
 package Rodriguez.Ev2.Model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +21,22 @@ public class Cotizacion {
     @Column(name = "total")
     private int total;
 
+
+    //Mappeo de la conexión con venta
+    @OneToMany(mappedBy = "cotizacion")
+    private List<Venta> ventas;
+
+
+
+
+
+
+
+
+
+
+
+    
     public int getIdCotizacion() {
         return idCotizacion;
     }
@@ -33,5 +52,14 @@ public class Cotizacion {
     public void setTotal(int total) {
         this.total = total;
     }
-        
+
+    public List<Venta> getVentas() {
+        return ventas;
+    }
+
+    public void setVentas(List<Venta> ventas) {
+        this.ventas = ventas;
+    }
+
+    
 }
