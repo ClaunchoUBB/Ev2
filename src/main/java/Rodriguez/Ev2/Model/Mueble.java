@@ -20,7 +20,7 @@ public class Mueble{
     private int idMueble;
 
     //Mappeo con la tabla item
-    @OneToMany(mappedBy = "idMueble")
+    @OneToMany(mappedBy = "mueble")
     private List<Item> items;
 
     @Column(name = "nombre_mueble")

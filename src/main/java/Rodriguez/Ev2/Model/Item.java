@@ -24,7 +24,7 @@ public class Item {
     //Mapeo de la conexión con mueble
     @ManyToOne
     @JoinColumn(name = "ID_mueble")
-    private int idMueble;
+    private Mueble mueble;
 
 
     //Mapeo de la conexión con "ConexionItemVariante"
@@ -66,12 +66,12 @@ public class Item {
         this.idItem = idItem;
     }
 
-    public int getIdMueble() {
-        return idMueble;
+    public Mueble getMueble() {
+        return mueble;
     }
 
-    public void setIdMueble(int idMueble) {
-        this.idMueble = idMueble;
+    public void setIdMueble(Mueble mueble) {
+        this.mueble = mueble;
     }
 
     public List<ConexionItemVariante> getConexiones() {

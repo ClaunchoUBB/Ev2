@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "conexion_item_variable")
+@Table (name = "conexion_item_variante")
 public class ConexionItemVariante{
 
     @Id

@@ -13,7 +13,7 @@ FLUSH PRIVILEGES;
 
 #Tabla tal cual la pide el enunciado
 CREATE TABLE mueble(
-    ID_mueble INT PRIMARY KEY,
+    ID_mueble INT PRIMARY KEY AUTO_INCREMENT,
     nombre_mueble VARCHAR(30),
     tipo VARCHAR(30),
     precio_base INT,
@@ -26,7 +26,7 @@ CREATE TABLE mueble(
 
 #Tabla variante que guarda información de las variantes
 CREATE TABLE variante(
-    ID_variante INT PRIMARY KEY,
+    ID_variante INT PRIMARY KEY AUTO_INCREMENT,
     nombre_variante VARCHAR(30),
     descripcion VARCHAR(90),
     precio_extra INT
@@ -35,7 +35,7 @@ CREATE TABLE variante(
 
 #Tabla item, guarda un mueble y su variante
 CREATE TABLE item(
-    ID_item INT PRIMARY KEY,
+    ID_item INT PRIMARY KEY AUTO_INCREMENT,
     ID_mueble INT NOT NULL,
     ID_cotizacion INT,
     precio INT,
@@ -45,7 +45,7 @@ CREATE TABLE item(
 
 #Tabla para el muchos a muchos entre item y variante
 CREATE TABLE conexion_item_variante(
-    ID_conexion_item_variante INT PRIMARY KEY,
+    ID_conexion_item_variante INT PRIMARY KEY AUTO_INCREMENT,
     ID_item INT NOT NULL,
     ID_variante INT NOT NULL
 );
@@ -53,14 +53,14 @@ CREATE TABLE conexion_item_variante(
 
 #Tabla para guardar el total de una cotización
 CREATE TABLE cotizacion(
-    ID_cotizacion INT PRIMARY KEY,
+    ID_cotizacion INT PRIMARY KEY AUTO_INCREMENT,
     total INT
 );
 
 
 #Tabla que guarda una venta Y su fecha
 CREATE TABLE venta(
-    ID_venta INT PRIMARY KEY,
+    ID_venta INT PRIMARY KEY AUTO_INCREMENT,
     ID_cotizacion INT NOT NULL,
     fecha TIMESTAMP
 );
