@@ -71,10 +71,14 @@ public class MuebleTest {
 
         servicioMueble.updateMueble(muebleTesteo.getIdMueble(), otroMueble);
 
-        assertEquals(servicioMueble.getMueble(muebleTesteo.getIdMueble()).getNombreMueble(), "Silla de plata");
-        assertEquals(servicioMueble.getMueble(muebleTesteo.getIdMueble()).getStock(), 80);
-        assertEquals(servicioMueble.getMueble(muebleTesteo.getIdMueble()).getPrecioBase(), 80000);
-        assertEquals(servicioMueble.getMueble(muebleTesteo.getIdMueble()).getMaterial().toLowerCase(),"plata");
+        Mueble muebleEnDatabase = servicioMueble.getMueble(muebleTesteo.getIdMueble());
+
+        assertEquals(muebleEnDatabase, "Silla de plata");
+        assertEquals(muebleEnDatabase, 80);
+        assertEquals(muebleEnDatabase, 80000);
+        assertEquals(muebleEnDatabase.getMaterial(),"Plata");
+
+        assertEquals(muebleEnDatabase.getIdMueble(), muebleTesteo.getIdMueble());
 
     }
 
