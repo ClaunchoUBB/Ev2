@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,10 +18,10 @@ public class Variante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idVariante;
 
-    //Mappeo con la tabla ConexionItemVariante
-    @OneToMany(mappedBy = "variante")
-    private List<ConexionItemVariante> conexiones;
-    
+    @ManyToMany(mappedBy = "variantes")
+    private List<Item> items;
+
+
     @Column(name = "nombre_variante")
     private String nombreVariante;
 
@@ -67,6 +67,14 @@ public class Variante {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     

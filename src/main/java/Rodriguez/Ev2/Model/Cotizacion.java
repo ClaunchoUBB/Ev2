@@ -26,6 +26,9 @@ public class Cotizacion {
     @OneToMany(mappedBy = "cotizacion")
     private List<Venta> ventas;
 
+    @OneToMany(mappedBy = "cotizacion")
+    private List<Item> items;
+
 
 
 
@@ -60,6 +63,16 @@ public class Cotizacion {
     public void setVentas(List<Venta> ventas) {
         this.ventas = ventas;
     }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    
 
     
 }

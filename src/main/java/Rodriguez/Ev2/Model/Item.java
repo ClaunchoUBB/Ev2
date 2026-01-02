@@ -8,8 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,36 +28,34 @@ public class Item {
     private Mueble mueble;
 
 
-    //Mapeo de la conexión con "ConexionItemVariante"
-    @OneToMany(mappedBy = "item")
-    private List<ConexionItemVariante> conexiones;
+    //Aquí mapeamos un ManyToMany usando el @ de JPA, primero lo había hecho con tabla intermedia
+    @ManyToMany
+    @JoinTable(
+        name = "conexion_item_variante",
+        joinColumns = @JoinColumn(name="ID_item"),
+        inverseJoinColumns = @JoinColumn(name="ID_variante")
+    )
+    private List<Variante> variantes;
 
 
     //Mapeo de la conexión con Cotizacion
     @ManyToOne
     @JoinColumn(name="ID_Cotizacion")
-    private List<Cotizacion> cotizaciones;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private Cotizacion cotizacion;
     
     @Column(name = "precio")
     private int precio;
 
     @Column(name ="cantidad")
     private int cantidad;
+
+
+
+
+
+
+
+
 
     public int getIdItem() {
         return idItem;
@@ -74,22 +73,59 @@ public class Item {
         this.mueble = mueble;
     }
 
-    public List<ConexionItemVariante> getConexiones() {
-        return conexiones;
+    public void setMueble(Mueble mueble) {
+        this.mueble = mueble;
     }
 
-    public void setConexiones(List<ConexionItemVariante> conexiones) {
-        this.conexiones = conexiones;
+    public Cotizacion getCotizacion() {
+        return cotizacion;
     }
 
-    public List<Cotizacion> getCotizaciones() {
-        return cotizaciones;
+    public void setCotizacion(Cotizacion cotizacion) {
+        this.cotizacion = cotizacion;
     }
 
-    public void setCotizaciones(List<Cotizacion> cotizaciones) {
-        this.cotizaciones = cotizaciones;
+    public int getPrecio() {
+        return precio;
     }
 
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public void setPrecio(){
+        int precio = 0; 
+        for (Variante varianteActual : this.variantes) {
+            precio += varianteActual.getPrecioExtra();
+        }
+        precio += mueble.getPrecioBase();
+        this.precio = precio; 
+    }
     
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public List<Variante> getVariantes() {
+        return variantes;
+    }
+
+    public void setVariantes(List<Variante> variantes) {
+        this.variantes = variantes;
+    }
+
+    public void addVariante(Variante varianteToBeAdded){
+        this.variantes.add(varianteToBeAdded);
+        varianteToBeAdded.getItems().add(this);
+    }
+
+    public void removeVariante(Variante variante) {
+        this.variantes.remove(variante);
+        variante.getItems().remove(this);
+    }
 
 }

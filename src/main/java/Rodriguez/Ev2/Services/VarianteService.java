@@ -32,8 +32,8 @@ public class VarianteService {
         varianteRepository.deleteById(Integer.valueOf(id));
     }
 
-    public Variante updateVariante(int id, Variante reemplazo){
-        Optional<Variante> optionalVariante = varianteRepository.findById(id);
+    public Variante updateVariante(int idToBeUpdated, Variante reemplazo){
+        Optional<Variante> optionalVariante = varianteRepository.findById(idToBeUpdated);
         
         if (optionalVariante.isPresent()) {
             Variante existingVariante = optionalVariante.get();

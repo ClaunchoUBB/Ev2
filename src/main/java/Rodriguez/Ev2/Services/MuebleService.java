@@ -23,16 +23,16 @@ public class MuebleService {
         return muebleRepository.save(muebleToBeSaved);
     }
 
-    public Mueble getMueble(int id){
-        return muebleRepository.findById(Integer.valueOf(id)).orElse(null);
+    public Mueble getMueble(int idToBeRead){
+        return muebleRepository.findById(Integer.valueOf(idToBeRead)).orElse(null);
     }
 
-    public void deleteMueble(int id){
-        muebleRepository.deleteById(Integer.valueOf(id));
+    public void deleteMueble(int idToBeDeleted){
+        muebleRepository.deleteById(Integer.valueOf(idToBeDeleted));
     }
 
-    public Mueble updateMueble(int id, Mueble reemplazo) {
-        Optional<Mueble> optionalMueble = muebleRepository.findById(id); 
+    public Mueble updateMueble(int idToBeUpdated, Mueble reemplazo) {
+        Optional<Mueble> optionalMueble = muebleRepository.findById(idToBeUpdated); 
         if (optionalMueble.isPresent()) {
             Mueble existingMueble = optionalMueble.get(); 
 
