@@ -31,6 +31,22 @@ public class MuebleService {
         muebleRepository.deleteById(Integer.valueOf(idToBeDeleted));
     }
 
+    public void deactivateMueble(int idToBeDeactivated){
+        Optional<Mueble> optionalMueble = muebleRepository.findById(idToBeDeactivated);
+        if (optionalMueble.isPresent()) {
+            Mueble existingMueble = optionalMueble.get();
+            existingMueble.setEstado(false);
+        }
+    }
+
+    public void activateMueble(int idToBeActivated){
+        Optional<Mueble> optionalMueble = muebleRepository.findById(idToBeActivated);
+        if (optionalMueble.isPresent()) {
+            Mueble existingMueble = optionalMueble.get();
+            existingMueble.setEstado(true);
+        }
+    }
+
     public Mueble updateMueble(int idToBeUpdated, Mueble reemplazo) {
         Optional<Mueble> optionalMueble = muebleRepository.findById(idToBeUpdated); 
         if (optionalMueble.isPresent()) {
