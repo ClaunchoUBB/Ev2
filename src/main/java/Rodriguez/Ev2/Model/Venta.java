@@ -24,15 +24,7 @@ public class Venta {
     private Cotizacion cotizacion;
 
     @Column(name ="fecha")
-    private LocalDateTime fecha;
-
-
-
-
-
-
-
-
+    private LocalDateTime fecha = LocalDateTime.now();
     
     public int getIdVenta() {
         return idVenta;

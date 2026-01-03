@@ -24,7 +24,7 @@ public class Cotizacion {
     private int total;
 
     // Mappeo de la conexión con venta
-    @OneToMany(mappedBy = "cotizacion")
+    @OneToMany(mappedBy = "cotizacion", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Venta> ventas = new ArrayList<>();
 
     @OneToMany(mappedBy = "cotizacion",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
