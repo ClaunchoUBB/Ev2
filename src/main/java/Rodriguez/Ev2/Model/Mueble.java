@@ -14,47 +14,37 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table( name= "mueble")
-public class Mueble{
+@Table(name = "mueble")
+public class Mueble {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idMueble;
 
-    //Mappeo con la tabla item
-    @OneToMany(mappedBy = "mueble", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    // Mappeo con la tabla item
+    @OneToMany(mappedBy = "mueble", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private List<Item> items = new ArrayList<>();
 
     @Column(name = "nombre_mueble")
     private String nombreMueble;
 
-    @Column(name= "tipo")
+    @Column(name = "tipo")
     private String tipo;
 
-    @Column(name="precio_base")
+    @Column(name = "precio_base")
     private int precioBase;
 
-    @Column(name="stock")
+    @Column(name = "stock")
     private int stock;
 
-    @Column(name="estado")
+    @Column(name = "estado")
     private boolean estado;
 
-    @Column(name="tamano")
+    @Column(name = "tamano")
     private tamano tamano;
 
-    @Column(name="material")
+    @Column(name = "material")
     private String material;
-
-
-
-
-
-
-
-
-
-
 
     public int getIdMueble() {
         return idMueble;
@@ -127,8 +117,14 @@ public class Mueble{
     public void setItems(List<Item> items) {
         this.items = items;
     }
-    
-    
+
+    public boolean isSame(Mueble otro) {
+        if (otro == null)
+            return false;
+        if (this.idMueble == 0 || otro.idMueble == 0)
+            return false;
+        return this.idMueble == otro.idMueble;
+
+    }
 
 }
-

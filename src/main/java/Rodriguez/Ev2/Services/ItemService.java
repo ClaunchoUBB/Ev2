@@ -25,88 +25,93 @@ public class ItemService {
     @Autowired
     private MuebleRepository repositoryMueble;
 
-
-    public List<Item> getAllItems(){
+    public List<Item> getAllItems() {
         return repositoryItem.findAll();
     }
 
-    public Item saveItem(Item itemToBeSaved){
+    public Item saveItem(Item itemToBeSaved) {
         itemToBeSaved.setPrecioUnitario();
         return repositoryItem.save(itemToBeSaved);
     }
 
-    public Item getItem(int id){
+    public Item getItem(int id) {
         return repositoryItem.findById(id).orElse(null);
     }
 
-    public Item updateItem(int idToBeUpdated,Item reemplazo){
+    public Item updateItem(int idToBeUpdated, Item reemplazo) {
         Optional<Item> optionalItem = repositoryItem.findById(idToBeUpdated);
-        
+
         if (optionalItem.isPresent()) {
             Item existingItem = optionalItem.get();
+
+            if (!existingItem.getMueble().isSame(reemplazo.getMueble())) {
+                Mueble muebleAnterior = existingItem.getMueble();
+                if (muebleAnterior != null) {
+                    muebleAnterior.getItems().remove(existingItem);
+                }
+
+                Mueble nuevoMueble = reemplazo.getMueble();
+                if (nuevoMueble != null) {
+                    nuevoMueble.getItems().add(existingItem);
+                }
+            }
 
             existingItem.setCotizacion(reemplazo.getCotizacion());
             existingItem.setVariantes(reemplazo.getVariantes());
             existingItem.setCantidad(reemplazo.getCantidad());
             existingItem.setMueble(reemplazo.getMueble());
-
-            
             existingItem.setPrecioUnitario();
 
-
             return repositoryItem.save(existingItem);
-        }else{
+
+        } else {
             return null;
         }
-
-
     }
-
 
     public Item addVarianteToItem(int idItemToBeUpdated, int idVarianteToBeAdded) {
         Item item = repositoryItem.findById(idItemToBeUpdated)
-            .orElseThrow(() -> new RuntimeException("Item no encontrado"));
-        
+                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+
         Variante variante = repositoryVariante.findById(idVarianteToBeAdded)
-            .orElseThrow(() -> new RuntimeException("Variante no encontrada"));
-        
+                .orElseThrow(() -> new RuntimeException("Variante no encontrada"));
+
         item.addVariante(variante);
         item.setPrecioUnitario();
         return repositoryItem.save(item);
     }
 
-    public Item removeVarianteFromItem(int idItemToBeUpdated, int idVarianteToBeRemoved){
+    public Item removeVarianteFromItem(int idItemToBeUpdated, int idVarianteToBeRemoved) {
         Item item = repositoryItem.findById(idItemToBeUpdated)
-            .orElseThrow(() -> new RuntimeException("Item no encontrado"));
-        
+                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+
         Variante variante = repositoryVariante.findById(idVarianteToBeRemoved)
-            .orElseThrow(() -> new RuntimeException("Variante no encontrada"));
-        
+                .orElseThrow(() -> new RuntimeException("Variante no encontrada"));
+
         item.removeVariante(variante);
         item.setPrecioUnitario();
         return repositoryItem.save(item);
     }
 
+    public Item setMuebleItemCreate(Item itemToBeUpdated, Mueble muebleToBeUpdated) {
+        Mueble muebleEnDatabase = repositoryMueble.findById(muebleToBeUpdated.getIdMueble())
+                .orElseThrow(() -> new RuntimeException("Mueble no encontrado"));
 
-    public Item setMuebleItemCreate(Item itemToBeUpdated, Mueble muebleToBeUpdated){
-    Mueble muebleEnDatabase = repositoryMueble.findById(muebleToBeUpdated.getIdMueble())
-        .orElseThrow(() -> new RuntimeException("Mueble no encontrado"));
-    
-    itemToBeUpdated.setMueble(muebleEnDatabase);
-    muebleEnDatabase.getItems().add(itemToBeUpdated);
-    
-    return repositoryItem.save(itemToBeUpdated);
-}
+        itemToBeUpdated.setMueble(muebleEnDatabase);
+        muebleEnDatabase.getItems().add(itemToBeUpdated);
+        itemToBeUpdated.setPrecioUnitario();
+        return repositoryItem.save(itemToBeUpdated);
+    }
 
     public void deleteItem(int idItem) {
         Item item = repositoryItem.findById(idItem)
-        .orElseThrow(() -> new RuntimeException("Item no encontrado"));
-    
+                .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+
         Mueble mueble = item.getMueble();
         if (mueble != null) {
             mueble.getItems().remove(item);
         }
-        
+
         repositoryItem.delete(item);
     }
 }

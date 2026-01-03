@@ -15,48 +15,34 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "item")
+@Table(name = "item")
 public class Item {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idItem;
 
-
-    //Mapeo de la conexión con mueble
+    // Mapeo de la conexión con mueble
     @ManyToOne
     @JoinColumn(name = "ID_mueble")
     private Mueble mueble;
 
-
-    //Aquí mapeamos un ManyToMany usando el @ de JPA, primero lo había hecho con tabla intermedia
+    // Aquí mapeamos un ManyToMany usando el @ de JPA, primero lo había hecho con
+    // tabla intermedia
     @ManyToMany
-    @JoinTable(
-        name = "conexion_item_variante",
-        joinColumns = @JoinColumn(name="ID_item"),
-        inverseJoinColumns = @JoinColumn(name="ID_variante")
-    )
+    @JoinTable(name = "conexion_item_variante", joinColumns = @JoinColumn(name = "ID_item"), inverseJoinColumns = @JoinColumn(name = "ID_variante"))
     private List<Variante> variantes = new ArrayList<>();
 
-
-    //Mapeo de la conexión con Cotizacion
+    // Mapeo de la conexión con Cotizacion
     @ManyToOne
-    @JoinColumn(name="ID_Cotizacion")
+    @JoinColumn(name = "ID_Cotizacion")
     private Cotizacion cotizacion;
-    
+
     @Column(name = "precio_unitario")
     private int precioUnitario;
 
-    @Column(name ="cantidad")
+    @Column(name = "cantidad")
     private int cantidad;
-
-
-
-
-
-
-
-
 
     public int getIdItem() {
         return idItem;
@@ -82,20 +68,19 @@ public class Item {
         this.cotizacion = cotizacion;
     }
 
-    public int getPrecioUnitario(){
+    public int getPrecioUnitario() {
         return this.precioUnitario;
     }
 
-    public void setPrecioUnitario(){
-        int precio = 0; 
+    public void setPrecioUnitario() {
+        int precio = 0;
         precio += mueble.getPrecioBase();
-
         for (Variante varianteActual : this.variantes) {
             precio += varianteActual.getPrecioExtra();
         }
-        this.precioUnitario = precio; 
+        this.precioUnitario = precio;
     }
-    
+
     public int getCantidad() {
         return cantidad;
     }
@@ -112,7 +97,7 @@ public class Item {
         this.variantes = variantes;
     }
 
-    public void addVariante(Variante varianteToBeAdded){
+    public void addVariante(Variante varianteToBeAdded) {
         this.variantes.add(varianteToBeAdded);
         varianteToBeAdded.getItems().add(this);
     }
