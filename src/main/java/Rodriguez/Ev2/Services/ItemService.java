@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Rodriguez.Ev2.Model.Item;
+import Rodriguez.Ev2.Model.Mueble;
 import Rodriguez.Ev2.Model.Variante;
 import Rodriguez.Ev2.Repositories.ItemRepository;
+import Rodriguez.Ev2.Repositories.MuebleRepository;
 import Rodriguez.Ev2.Repositories.VarianteRepository;
 
 @Service
@@ -20,11 +22,16 @@ public class ItemService {
     @Autowired
     private VarianteRepository repositoryVariante;
 
+    @Autowired
+    private MuebleRepository repositoryMueble;
+
+
     public List<Item> getAllItems(){
         return repositoryItem.findAll();
     }
 
     public Item saveItem(Item itemToBeSaved){
+        itemToBeSaved.setPrecioUnitario();
         return repositoryItem.save(itemToBeSaved);
     }
 
@@ -42,7 +49,9 @@ public class ItemService {
             existingItem.setVariantes(reemplazo.getVariantes());
             existingItem.setCantidad(reemplazo.getCantidad());
             existingItem.setMueble(reemplazo.getMueble());
-            existingItem.setPrecio();
+
+            
+            existingItem.setPrecioUnitario();
 
 
             return repositoryItem.save(existingItem);
@@ -62,7 +71,7 @@ public class ItemService {
             .orElseThrow(() -> new RuntimeException("Variante no encontrada"));
         
         item.addVariante(variante);
-        
+        item.setPrecioUnitario();
         return repositoryItem.save(item);
     }
 
@@ -74,7 +83,30 @@ public class ItemService {
             .orElseThrow(() -> new RuntimeException("Variante no encontrada"));
         
         item.removeVariante(variante);
+        item.setPrecioUnitario();
         return repositoryItem.save(item);
     }
+
+
+    public Item setMuebleItemCreate(Item itemToBeUpdated, Mueble muebleToBeUpdated){
+    Mueble muebleEnDatabase = repositoryMueble.findById(muebleToBeUpdated.getIdMueble())
+        .orElseThrow(() -> new RuntimeException("Mueble no encontrado"));
     
+    itemToBeUpdated.setMueble(muebleEnDatabase);
+    muebleEnDatabase.getItems().add(itemToBeUpdated);
+    
+    return repositoryItem.save(itemToBeUpdated);
+}
+
+    public void deleteItem(int idItem) {
+        Item item = repositoryItem.findById(idItem)
+        .orElseThrow(() -> new RuntimeException("Item no encontrado"));
+    
+        Mueble mueble = item.getMueble();
+        if (mueble != null) {
+            mueble.getItems().remove(item);
+        }
+        
+        repositoryItem.delete(item);
+    }
 }

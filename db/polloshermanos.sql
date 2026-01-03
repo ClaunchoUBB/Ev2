@@ -38,7 +38,7 @@ CREATE TABLE item(
     ID_item INT PRIMARY KEY AUTO_INCREMENT,
     ID_mueble INT NOT NULL,
     ID_cotizacion INT,
-    precio INT,
+    precio_unitario INT,
     cantidad INT
 );
 

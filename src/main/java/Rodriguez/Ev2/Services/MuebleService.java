@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import Rodriguez.Ev2.Model.Item;
 import Rodriguez.Ev2.Model.Mueble;
+import Rodriguez.Ev2.Repositories.ItemRepository;
 import Rodriguez.Ev2.Repositories.MuebleRepository;
 
 @Service
@@ -14,6 +16,8 @@ public class MuebleService {
     
     @Autowired
     private MuebleRepository muebleRepository;
+    @Autowired
+    private ItemRepository itemRepository;
 
     public List<Mueble> getAllMuebles(){
         return muebleRepository.findAll();
@@ -63,5 +67,20 @@ public class MuebleService {
         } else {
             return null;
         }
+    }
+
+
+    public Mueble removeItemFromMueble(Mueble muebleToBeUpdated, Item itemToBeRemoved){
+
+        Mueble muebleEnDatabase = muebleRepository.findById(muebleToBeUpdated.getIdMueble()).orElse(null);
+        Item itemEnDatabase = itemRepository.findById(itemToBeRemoved.getIdItem()).orElse(null);
+
+        itemEnDatabase.setMueble(null);
+        muebleEnDatabase.getItems().remove(itemEnDatabase);
+
+        itemRepository.save(itemEnDatabase);
+        return muebleRepository.save(muebleEnDatabase);
+
+
     }
 }

@@ -1,5 +1,6 @@
 package Rodriguez.Ev2.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -35,7 +36,7 @@ public class Item {
         joinColumns = @JoinColumn(name="ID_item"),
         inverseJoinColumns = @JoinColumn(name="ID_variante")
     )
-    private List<Variante> variantes;
+    private List<Variante> variantes = new ArrayList<>();
 
 
     //Mapeo de la conexión con Cotizacion
@@ -43,8 +44,8 @@ public class Item {
     @JoinColumn(name="ID_Cotizacion")
     private Cotizacion cotizacion;
     
-    @Column(name = "precio")
-    private int precio;
+    @Column(name = "precio_unitario")
+    private int precioUnitario;
 
     @Column(name ="cantidad")
     private int cantidad;
@@ -69,10 +70,6 @@ public class Item {
         return mueble;
     }
 
-    public void setIdMueble(Mueble mueble) {
-        this.mueble = mueble;
-    }
-
     public void setMueble(Mueble mueble) {
         this.mueble = mueble;
     }
@@ -85,21 +82,18 @@ public class Item {
         this.cotizacion = cotizacion;
     }
 
-    public int getPrecio() {
-        return precio;
+    public int getPrecioUnitario(){
+        return this.precioUnitario;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
-    public void setPrecio(){
+    public void setPrecioUnitario(){
         int precio = 0; 
+        precio += mueble.getPrecioBase();
+
         for (Variante varianteActual : this.variantes) {
             precio += varianteActual.getPrecioExtra();
         }
-        precio += mueble.getPrecioBase();
-        this.precio = precio; 
+        this.precioUnitario = precio; 
     }
     
     public int getCantidad() {

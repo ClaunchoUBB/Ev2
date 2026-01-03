@@ -1,8 +1,10 @@
 package Rodriguez.Ev2.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Rodriguez.Ev2.Model.Enum.tamano;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,8 +22,8 @@ public class Mueble{
     private int idMueble;
 
     //Mappeo con la tabla item
-    @OneToMany(mappedBy = "mueble")
-    private List<Item> items;
+    @OneToMany(mappedBy = "mueble", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Item> items = new ArrayList<>();
 
     @Column(name = "nombre_mueble")
     private String nombreMueble;
@@ -117,6 +119,16 @@ public class Mueble{
     public void setMaterial(String material) {
         this.material = material;
     }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
     
+    
+
 }
 
