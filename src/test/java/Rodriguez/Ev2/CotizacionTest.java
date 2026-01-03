@@ -15,8 +15,6 @@ import Rodriguez.Ev2.Model.Mueble;
 import Rodriguez.Ev2.Services.CotizacionService;
 import Rodriguez.Ev2.Services.ItemService;
 import Rodriguez.Ev2.Services.MuebleService;
-import Rodriguez.Ev2.Services.VarianteService;
-import Rodriguez.Ev2.Services.VentaService;
 import jakarta.transaction.Transactional;
 
 @Transactional
