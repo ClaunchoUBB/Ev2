@@ -3,6 +3,7 @@ package Rodriguez.Ev2.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Cotizacion {
     @OneToMany(mappedBy = "cotizacion")
     private List<Venta> ventas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cotizacion")
+    @OneToMany(mappedBy = "cotizacion",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Item> items = new ArrayList<>();
 
     public int getIdCotizacion() {
@@ -42,6 +43,7 @@ public class Cotizacion {
     }
 
     public void setTotal() {
+        this.total=0;
         if (!items.isEmpty()) {
             for (Item item : items) {
                 this.total += item.getPrecioUnitario() * item.getCantidad();

@@ -24,7 +24,7 @@ public class VarianteService {
         return varianteRepository.save(varianteToBeSaved);
     }
 
-    public Variante getVariante(int id){
+    public Variante readVariante(int id){
         return varianteRepository.findById(id).orElse(null);
     }
 

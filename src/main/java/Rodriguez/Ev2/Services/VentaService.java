@@ -10,7 +10,7 @@ import Rodriguez.Ev2.Repositories.VentaRepository;
 public class VentaService {
     @Autowired private VentaRepository repositorioVentas;
 
-    public Venta createVenta(Venta ventaToBeSaved){
+    public Venta saveVenta(Venta ventaToBeSaved){
         return repositorioVentas.save(ventaToBeSaved);
     }
 

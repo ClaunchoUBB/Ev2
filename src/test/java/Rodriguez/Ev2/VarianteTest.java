@@ -42,7 +42,7 @@ public class VarianteTest {
 
         servicioVariante.saveVariante(varianteTesteo);
 
-        Variante varianteEnDatabase = servicioVariante.getVariante(varianteTesteo.getIdVariante());
+        Variante varianteEnDatabase = servicioVariante.readVariante(varianteTesteo.getIdVariante());
 
         assertEquals(varianteTesteo, varianteEnDatabase);
 
@@ -56,7 +56,7 @@ public class VarianteTest {
 
         servicioVariante.deleteVariante(varianteTesteo.getIdVariante());
 
-        assertNull(servicioVariante.getVariante(varianteTesteo.getIdVariante()));
+        assertNull(servicioVariante.readVariante(varianteTesteo.getIdVariante()));
     }
 
 
@@ -75,7 +75,7 @@ public class VarianteTest {
 
         servicioVariante.updateVariante(varianteTesteo.getIdVariante(), otroVariante);
         
-        Variante varianteEnDatabase = servicioVariante.getVariante(varianteTesteo.getIdVariante());
+        Variante varianteEnDatabase = servicioVariante.readVariante(varianteTesteo.getIdVariante());
 
         assertEquals(varianteEnDatabase.getDescripcion(), "Barnizado con barniz premium");
         assertEquals(varianteEnDatabase.getNombreVariante(), "Barniz Premium");

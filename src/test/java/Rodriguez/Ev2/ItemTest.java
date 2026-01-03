@@ -132,7 +132,7 @@ public class ItemTest {
 
         assertEquals(30000, itemActualizado.getPrecioUnitario());
 
-        Variante varianteActualizada = servicioVariante.getVariante(varianteEnDB.getIdVariante());
+        Variante varianteActualizada = servicioVariante.readVariante(varianteEnDB.getIdVariante());
         Item itemActualizado2 = servicioItem.removeVarianteFromItem(itemActualizado.getIdItem(),varianteActualizada.getIdVariante());
         
         assertFalse(varianteActualizada.getItems().contains(itemActualizado2));
@@ -168,7 +168,7 @@ public class ItemTest {
 
         assertEquals(30000, itemActualizado.getPrecioUnitario());
 
-        Variante varianteActualizada = servicioVariante.getVariante(varianteEnDB.getIdVariante());
+        Variante varianteActualizada = servicioVariante.readVariante(varianteEnDB.getIdVariante());
         assertTrue(varianteActualizada.getItems().contains(itemActualizado));
     }
 
