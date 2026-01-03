@@ -31,7 +31,6 @@ public class ItemTest {
     @Autowired
     private VarianteService servicioVariante;
 
-
     @Test
     public void createItemTest() {
         Mueble muebleDePrueba = MuebleTest.buildMueble();
@@ -110,6 +109,37 @@ public class ItemTest {
 
     @Test
     public void removeVarianteTest() {
+        Mueble mueble = MuebleTest.buildMueble();
+        Mueble muebleEnDB = servicioMueble.saveMueble(mueble);
+
+        Item item = new Item();
+        item.setCantidad(5);
+        Item itemEnDB = servicioItem.setMuebleItemCreate(item, muebleEnDB);
+
+        Variante variante = VarianteTest.buildVariante();
+        variante.setPrecioExtra(20000);
+        Variante varianteEnDB = servicioVariante.saveVariante(variante);
+
+        assertEquals(0, itemEnDB.getVariantes().size());
+        assertEquals(10000, itemEnDB.getPrecioUnitario());
+
+        Item itemActualizado = servicioItem.addVarianteToItem(
+                itemEnDB.getIdItem(),
+                varianteEnDB.getIdVariante());
+
+        assertEquals(1, itemActualizado.getVariantes().size());
+        assertTrue(itemActualizado.getVariantes().contains(varianteEnDB));
+
+        assertEquals(30000, itemActualizado.getPrecioUnitario());
+
+        Variante varianteActualizada = servicioVariante.getVariante(varianteEnDB.getIdVariante());
+        Item itemActualizado2 = servicioItem.removeVarianteFromItem(itemActualizado.getIdItem(),varianteActualizada.getIdVariante());
+        
+        assertFalse(varianteActualizada.getItems().contains(itemActualizado2));
+        assertFalse(itemActualizado2.getVariantes().contains(varianteActualizada));
+
+
+
 
     }
 
