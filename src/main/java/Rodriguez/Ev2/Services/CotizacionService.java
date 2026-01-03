@@ -28,6 +28,7 @@ public class CotizacionService {
     }
 
     public void addItemToCotizacion(Cotizacion cotizacionToBeUpdated, Item itemToBeAdded) {
+        repositorioItem.save(itemToBeAdded);
         cotizacionToBeUpdated.getItems().add(itemToBeAdded);
         itemToBeAdded.setCotizacion(cotizacionToBeUpdated);
         cotizacionToBeUpdated.setTotal();
