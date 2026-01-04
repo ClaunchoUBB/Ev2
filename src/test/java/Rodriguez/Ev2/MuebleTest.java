@@ -2,13 +2,12 @@ package Rodriguez.Ev2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import Rodriguez.Ev2.Model.Mueble;
 import Rodriguez.Ev2.Model.Enum.tamano;
+import Rodriguez.Ev2.Model.Mueble;
 import Rodriguez.Ev2.Services.MuebleService;
 import jakarta.transaction.Transactional;
 
@@ -73,9 +72,9 @@ public class MuebleTest {
 
         Mueble muebleEnDatabase = servicioMueble.getMueble(muebleTesteo.getIdMueble());
 
-        assertEquals(muebleEnDatabase, "Silla de plata");
-        assertEquals(muebleEnDatabase, 80);
-        assertEquals(muebleEnDatabase, 80000);
+        assertEquals(muebleEnDatabase.getNombreMueble(), "Silla de plata");
+        assertEquals(muebleEnDatabase.getStock(), 80);
+        assertEquals(muebleEnDatabase.getPrecioBase(), 80000);
         assertEquals(muebleEnDatabase.getMaterial(),"Plata");
 
         assertEquals(muebleEnDatabase.getIdMueble(), muebleTesteo.getIdMueble());
