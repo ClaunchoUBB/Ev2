@@ -1,0 +1,30 @@
+meta {
+  name: POST MUEBLE
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/ev2/muebles
+  body: json
+  auth: inherit
+}
+
+body:json {
+  
+  {
+      "activo": true,
+      "items": [],
+      "material": "Vidrio",
+      "nombreMueble": "Mesa de vidrio",
+      "precioBase": 50000,
+      "stock": 12,
+      "tamano": "Grande",
+      "tipo": "Mesa"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
