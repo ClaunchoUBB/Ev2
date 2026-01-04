@@ -1,5 +1,7 @@
 package Rodriguez.Ev2.Controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,11 @@ public class CotizacionController {
     
     @Autowired
     private CotizacionService cotizacionService;
+
+    @GetMapping
+    public List<Cotizacion> getAll(){
+        return cotizacionService.getAllCotizaciones();
+    }
     
     @GetMapping("/{id}")
     public ResponseEntity<Cotizacion> getCotizacionById(@PathVariable int id) {

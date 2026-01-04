@@ -19,6 +19,10 @@ public class CotizacionService {
     @Autowired
     private ItemRepository repositorioItem;
 
+    public List<Cotizacion> getAllCotizaciones(){
+        return repositorioCotizacion.findAll();
+    }
+
     public Cotizacion saveCotizacion(Cotizacion cotizacionToBeSaved) {
         return repositorioCotizacion.save(cotizacionToBeSaved);
     }
