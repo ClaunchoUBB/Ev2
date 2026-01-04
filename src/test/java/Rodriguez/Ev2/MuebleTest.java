@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import Rodriguez.Ev2.Model.Enum.tamano;
 import Rodriguez.Ev2.Model.Mueble;
 import Rodriguez.Ev2.Services.MuebleService;
 import jakarta.transaction.Transactional;
@@ -23,7 +22,7 @@ public class MuebleTest {
         muebleCreado.setEstado(true);
         muebleCreado.setMaterial("Madera");
         muebleCreado.setNombreMueble("Silla de prueba");
-        muebleCreado.setTamano(tamano.GRANDE);
+        muebleCreado.setTamano("GRANDE");
         muebleCreado.setPrecioBase(10000);
         muebleCreado.setTipo("Silla");
         return muebleCreado;

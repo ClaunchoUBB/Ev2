@@ -25,18 +25,19 @@ public class MuebleController {
     private MuebleService servicioMueble;
 
     @GetMapping
-    public List<Mueble> getAll(){
+    public List<Mueble> getAll() {
         return servicioMueble.getAllMuebles();
     }
 
     @GetExchange("/{id}")
-    public ResponseEntity<Mueble> getById(@PathVariable int id){
+    public ResponseEntity<Mueble> getById(@PathVariable int id) {
         Mueble m = servicioMueble.getMueble(id);
-        return (m!=null) ? ResponseEntity.ok(m) : ResponseEntity.notFound().build();
+        return (m != null) ? ResponseEntity.ok(m) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
     public ResponseEntity<Mueble> create(@RequestBody Mueble mueble) {
+        mueble.setEstado(true);
         return ResponseEntity.ok(servicioMueble.saveMueble(mueble));
     }
 
@@ -50,5 +51,17 @@ public class MuebleController {
     public ResponseEntity<Void> delete(@PathVariable int id) {
         servicioMueble.deleteMueble(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/activar/{id}")
+    public ResponseEntity<Mueble> activate(@PathVariable int id) {
+        Mueble activado = servicioMueble.activateMueble(id);
+        return (activado != null) ? ResponseEntity.ok(activado) : ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/desactivar/{id}")
+    public ResponseEntity<Mueble> deactivate(@PathVariable int id) {
+        Mueble activado = servicioMueble.deactivateMueble(id);
+        return (activado != null) ? ResponseEntity.ok(activado) : ResponseEntity.notFound().build();
     }
 }

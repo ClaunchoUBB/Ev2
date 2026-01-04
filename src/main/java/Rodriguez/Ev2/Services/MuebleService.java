@@ -13,48 +13,52 @@ import Rodriguez.Ev2.Repositories.MuebleRepository;
 
 @Service
 public class MuebleService {
-    
+
     @Autowired
     private MuebleRepository muebleRepository;
     @Autowired
     private ItemRepository itemRepository;
 
-    public List<Mueble> getAllMuebles(){
+    public List<Mueble> getAllMuebles() {
         return muebleRepository.findAll();
     }
 
-    public Mueble saveMueble(Mueble muebleToBeSaved){
+    public Mueble saveMueble(Mueble muebleToBeSaved) {
         return muebleRepository.save(muebleToBeSaved);
     }
 
-    public Mueble getMueble(int idToBeRead){
-        return muebleRepository.findById(Integer.valueOf(idToBeRead)).orElse(null);
+    public Mueble getMueble(int idToBeRead) {
+        return muebleRepository.findById(idToBeRead).orElse(null);
     }
 
-    public void deleteMueble(int idToBeDeleted){
-        muebleRepository.deleteById(Integer.valueOf(idToBeDeleted));
+    public void deleteMueble(int idToBeDeleted) {
+        muebleRepository.deleteById(idToBeDeleted);
     }
 
-    public void deactivateMueble(int idToBeDeactivated){
+    public Mueble deactivateMueble(int idToBeDeactivated) {
         Optional<Mueble> optionalMueble = muebleRepository.findById(idToBeDeactivated);
         if (optionalMueble.isPresent()) {
             Mueble existingMueble = optionalMueble.get();
             existingMueble.setEstado(false);
+            return muebleRepository.save(existingMueble);
         }
+        return null;
     }
 
-    public void activateMueble(int idToBeActivated){
+    public Mueble activateMueble(int idToBeActivated) {
         Optional<Mueble> optionalMueble = muebleRepository.findById(idToBeActivated);
         if (optionalMueble.isPresent()) {
             Mueble existingMueble = optionalMueble.get();
             existingMueble.setEstado(true);
+            return muebleRepository.save(existingMueble);
         }
+        return null;
     }
 
     public Mueble updateMueble(int idToBeUpdated, Mueble reemplazo) {
-        Optional<Mueble> optionalMueble = muebleRepository.findById(idToBeUpdated); 
+        Optional<Mueble> optionalMueble = muebleRepository.findById(idToBeUpdated);
         if (optionalMueble.isPresent()) {
-            Mueble existingMueble = optionalMueble.get(); 
+            Mueble existingMueble = optionalMueble.get();
 
             existingMueble.setNombreMueble(reemplazo.getNombreMueble());
             existingMueble.setTipo(reemplazo.getTipo());
@@ -62,15 +66,14 @@ public class MuebleService {
             existingMueble.setMaterial(reemplazo.getMaterial());
             existingMueble.setStock(reemplazo.getStock());
             existingMueble.setEstado(reemplazo.isActivo());
-            
+
             return muebleRepository.save(existingMueble);
         } else {
             return null;
         }
     }
 
-
-    public Mueble removeItemFromMueble(Mueble muebleToBeUpdated, Item itemToBeRemoved){
+    public Mueble removeItemFromMueble(Mueble muebleToBeUpdated, Item itemToBeRemoved) {
 
         Mueble muebleEnDatabase = muebleRepository.findById(muebleToBeUpdated.getIdMueble()).orElse(null);
         Item itemEnDatabase = itemRepository.findById(itemToBeRemoved.getIdItem()).orElse(null);
@@ -80,7 +83,6 @@ public class MuebleService {
 
         itemRepository.save(itemEnDatabase);
         return muebleRepository.save(muebleEnDatabase);
-
 
     }
 }
