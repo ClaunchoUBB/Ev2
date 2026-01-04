@@ -3,7 +3,6 @@ package Rodriguez.Ev2.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import Rodriguez.Ev2.Model.Enum.tamano;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,7 +40,7 @@ public class Mueble {
     private boolean estado;
 
     @Column(name = "tamano")
-    private tamano tamano;
+    private String tamano;
 
     @Column(name = "material")
     private String material;
@@ -94,11 +93,11 @@ public class Mueble {
         this.estado = estado;
     }
 
-    public tamano getTamano() {
+    public String getTamano() {
         return tamano;
     }
 
-    public void setTamano(tamano tamano) {
+    public void setTamano(String tamano) {
         this.tamano = tamano;
     }
 
