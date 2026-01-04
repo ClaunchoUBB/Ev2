@@ -30,8 +30,21 @@ public class ItemService {
     }
 
     public Item saveItem(Item itemToBeSaved) {
+        if (itemToBeSaved.getMueble() != null && itemToBeSaved.getMueble().getIdMueble() != 0) {
+        int idMueble = itemToBeSaved.getMueble().getIdMueble();
+        Mueble muebleExistente = repositoryMueble.findById(idMueble).orElse(null);
+        
+        if (muebleExistente != null) {
+            itemToBeSaved.setMueble(muebleExistente);
+            itemToBeSaved.setPrecioUnitario();
+        } else {
+            throw new RuntimeException("Mueble con ID " + idMueble + " no encontrado");
+        }
+    } else {
         itemToBeSaved.setPrecioUnitario();
-        return repositoryItem.save(itemToBeSaved);
+    }
+    
+    return repositoryItem.save(itemToBeSaved);
     }
 
     public Item getItem(int id) {

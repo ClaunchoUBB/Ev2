@@ -1,0 +1,24 @@
+meta {
+  name: POST VARIANTE
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/ev2/variantes
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "descripcion": "Se le aplica barniz premium y ya",
+      "nombreVariante": "Barniz premium",
+      "precioExtra": 10000
+    }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

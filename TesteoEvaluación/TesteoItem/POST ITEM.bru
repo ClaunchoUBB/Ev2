@@ -1,0 +1,24 @@
+meta {
+  name: POST ITEM
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/ev2/items
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "mueble":{
+        "idMueble":86},
+      "cantidad":5
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
