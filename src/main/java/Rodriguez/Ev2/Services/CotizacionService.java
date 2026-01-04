@@ -24,6 +24,7 @@ public class CotizacionService {
     }
 
     public Cotizacion saveCotizacion(Cotizacion cotizacionToBeSaved) {
+        cotizacionToBeSaved.setTotal();
         return repositorioCotizacion.save(cotizacionToBeSaved);
     }
 

@@ -3,6 +3,8 @@ package Rodriguez.Ev2.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,6 +27,7 @@ public class Cotizacion {
 
     // Mappeo de la conexión con venta
     @OneToMany(mappedBy = "cotizacion", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
     private List<Venta> ventas = new ArrayList<>();
 
     @OneToMany(mappedBy = "cotizacion",cascade = {CascadeType.PERSIST, CascadeType.MERGE})

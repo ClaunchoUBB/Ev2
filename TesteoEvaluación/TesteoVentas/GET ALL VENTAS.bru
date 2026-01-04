@@ -1,15 +1,16 @@
 meta {
-  name: GET VENTA
+  name: GET ALL VENTAS
   type: http
-  seq: 6
+  seq: 1
 }
 
 get {
-  url: http://localhost:8080/ev2/ventas/
+  url: http://localhost:8080/ev2/ventas
   body: none
   auth: inherit
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
